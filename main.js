@@ -1,7 +1,5 @@
 //import axios from "axios";
 
-// Aşağıdaki Fonksiyonu değiştirmeyin.
-
 async function ipAdresimiAl() {
   return await axios({
     method: "get",
@@ -33,7 +31,7 @@ console.log(ipAdresim);
 async function getData() {
   return axios
     .get(`https://apis.ergineer.com/ipgeoapi/${ipAdresim}`)
-    .then((response) => response)
+    .then((response) => response.data)
     .catch((error) => {
       console.error("error:", error);
     });
@@ -65,12 +63,10 @@ function cardOlustur(veri) {
   card.classList.add("card");
 
   const bayrak = document.createElement("img");
-  bayrak.src(
-    `https://flaglog.com/codes/standardized-rectangle-120px/${veri.ülkekodu}.png`
-  );
+  bayrak.src = `https://flaglog.com/codes/standardized-rectangle-120px/${veri.ülkeKodu}.png`;
   card.appendChild(bayrak);
 
-  const cardinfo = createElement("div");
+  const cardinfo = document.createElement("div");
   cardinfo.classList.add("card-info");
 
   const h3ip = document.createElement("h3");
@@ -80,7 +76,7 @@ function cardOlustur(veri) {
 
   const ulke = document.createElement("p");
   ulke.classList.add("ulke");
-  ulke.textContent = veri.ulke + " " + "(" + veri.ülkekod + ")";
+  ulke.textContent = veri.ülke + " " + "(" + veri.ülkeKodu + ")";
   cardinfo.appendChild(ulke);
 
   const konum = document.createElement("p");
@@ -88,7 +84,7 @@ function cardOlustur(veri) {
   cardinfo.appendChild(konum);
 
   const sehir = document.createElement("p");
-  sehir.textContent = `Şehir: ` + veri.şehir;
+  sehir.textContent = `Şehir: ` + veri.bölgeAdı;
   cardinfo.appendChild(sehir);
 
   const saatDilimi = document.createElement("p");
