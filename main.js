@@ -1,6 +1,7 @@
-import axios from "axios";
+//import axios from "axios";
 
 // Aşağıdaki Fonksiyonu değiştirmeyin.
+
 async function ipAdresimiAl() {
   return await axios({
     method: "get",
@@ -30,7 +31,12 @@ console.log(ipAdresim);
 */
 
 async function getData() {
-  /* kodlar buraya */
+  return axios
+    .get(`https://apis.ergineer.com/ipgeoapi/${ipAdresim}`)
+    .then((response) => response)
+    .catch((error) => {
+      console.error("error:", error);
+    });
 }
 
 /*
@@ -54,8 +60,52 @@ async function getData() {
   </div>
 */
 
-function cardOlustur(/* kodlar buraya */) {
-  /* kodlar buraya */
+function cardOlustur(veri) {
+  const card = document.createElement("div");
+  card.classList.add("card");
+
+  const bayrak = document.createElement("img");
+  bayrak.src(
+    `https://flaglog.com/codes/standardized-rectangle-120px/${veri.ülkekodu}.png`
+  );
+  card.appendChild(bayrak);
+
+  const cardinfo = createElement("div");
+  cardinfo.classList.add("card-info");
+
+  const h3ip = document.createElement("h3");
+  h3ip.classList.add("ip");
+  h3ip.textContent = veri.sorgu;
+  cardinfo.appendChild(h3ip);
+
+  const ulke = document.createElement("p");
+  ulke.classList.add("ulke");
+  ulke.textContent = veri.ulke + " " + "(" + veri.ülkekod + ")";
+  cardinfo.appendChild(ulke);
+
+  const konum = document.createElement("p");
+  konum.textContent = `Enlem: ` + veri.enlem + ` - Boylam: ` + veri.boylam;
+  cardinfo.appendChild(konum);
+
+  const sehir = document.createElement("p");
+  sehir.textContent = `Şehir: ` + veri.şehir;
+  cardinfo.appendChild(sehir);
+
+  const saatDilimi = document.createElement("p");
+  saatDilimi.textContent = `Saat dilimi: ` + veri.saatdilimi;
+  cardinfo.appendChild(saatDilimi);
+
+  const para = document.createElement("p");
+  para.textContent = `Para birimi: ` + veri.parabirimi;
+  cardinfo.appendChild(para);
+
+  const isp = document.createElement("p");
+  isp.textContent = `ISP: ` + veri.isp;
+  cardinfo.appendChild(isp);
+
+  card.appendChild(cardinfo);
+
+  return card;
 }
 
 // Buradan sonrasını değiştirmeyin, burası yazdığınız kodu sayfaya uyguluyor.
